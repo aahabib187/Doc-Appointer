@@ -1,8 +1,8 @@
--- ==========================================
--- DOC_Appointer Full Database Tables
--- ==========================================
 
--- PARENT TABLES FIRST
+-- DOC_Appointer Full Database Tables
+-- ---------------------------------
+
+-- PARENT TABLES 
 
 -- 1. Users
 CREATE TABLE users (
@@ -82,7 +82,7 @@ CREATE TABLE time_slots (
     CONSTRAINT fk_timeslot_admin FOREIGN KEY (admin_id_last) REFERENCES admin(id)
 );
 
--- CHILD TABLES
+-- CHILDREN TABLES
 
 -- 9. Patient
 CREATE TABLE patient (

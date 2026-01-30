@@ -3,7 +3,8 @@ let users = [];
 
 // SIGN-UP FORM
 const signupForm = document.getElementById('signupForm');
-if (signupForm) {
+if (signupForm) 
+    {
     signupForm.addEventListener('submit', function(e) {
         e.preventDefault();
 
@@ -13,14 +14,15 @@ if (signupForm) {
         const phone = document.getElementById('phone').value;
         const role = document.getElementById('role').value;
 
-        // Check if email already exists
+        //If email is used once
         const exists = users.find(u => u.email === email);
-        if (exists) {
-            alert("Email already registered!");
+        if (exists) 
+            {
+            alert("Email already used");
             return;
         }
 
-        // Add user to array
+        // Store user in array
         users.push({ name, email, password, phone, role });
         alert("Sign-Up successful!");
 
