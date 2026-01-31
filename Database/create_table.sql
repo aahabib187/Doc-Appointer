@@ -245,3 +245,5 @@ CREATE TABLE emergency_contacts (
     CONSTRAINT fk_emergency_patient FOREIGN KEY (patient_id) REFERENCES patient(id)
 );
 
+select *
+from users;

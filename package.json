@@ -1,0 +1,25 @@
+{
+  "name": "doc-appointer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aahabib187/Doc-Appointer.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/aahabib187/Doc-Appointer/issues"
+  },
+  "homepage": "https://github.com/aahabib187/Doc-Appointer#readme",
+  "dependencies": {
+    "express": "^5.2.1",
+    "oracledb": "^6.10.0"
+  }
+}

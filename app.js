@@ -1,52 +1,52 @@
-// Temporary array to store users
-let users = [];
+const express = require("express");
+const oracledb = require("oracledb");
+const path = require("path");
 
-// SIGN-UP FORM
-const signupForm = document.getElementById('signupForm');
-if (signupForm) 
-    {
-    signupForm.addEventListener('submit', function(e) {
-        e.preventDefault();
+const app = express();
+app.use(express.json()); // parse JSON bodies
+app.use(express.urlencoded({ extended: true })); // parse form data
 
-        const name = document.getElementById('name').value;
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
-        const phone = document.getElementById('phone').value;
-        const role = document.getElementById('role').value;
+// Serve static frontend files (like signup.html, style.css)
+app.use(express.static(path.join(__dirname, "web"))); // Make sure signup.html is in "web" folder
 
-        //If email is used once
-        const exists = users.find(u => u.email === email);
-        if (exists) 
-            {
-            alert("Email already used");
-            return;
-        }
+// Oracle DB config – CHANGE these to your credentials
+const dbConfig = {
+  user: "system",
+  password: "Afnan@123",
+  connectString: "localhost/orclpdb"// XE is default Oracle Express DB
+};
 
-        // Store user in array
-        users.push({ name, email, password, phone, role });
-        alert("Sign-Up successful!");
+// Handle signup POST request
+app.post("/signup", async (req, res) => {
+    const { name, email, password, phone, role } = req.body;
 
-        // Clear form
-        signupForm.reset();
+    let con;
+    try {
+        con = await oracledb.getConnection(dbConfig);
 
-        console.log("Current Users:", users); // For testing
-    });
-}
+        await con.execute(
+            `INSERT INTO users (name, email, pass, phone, role)
+             VALUES (:name, :email, :pass, :phone, :role)`,
+            { name, email, pass: password, phone, role },
+            { autoCommit: true }
+        );
 
-// SIGN-IN FORM (from before)
-const signinForm = document.getElementById('signinForm');
-if (signinForm) {
-    signinForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
-
-        const user = users.find(u => u.email === email && u.password === password);
-        if (user) {
-            alert(`Welcome ${user.name}! Role: ${user.role}`);
+        res.send("Signup successful!");
+    } catch (err) {
+        console.error(err);
+        // Handle unique constraint (email already exists)
+        if (err.errorNum === 1) {
+            res.status(400).send("User with this email already exists");
         } else {
-            alert("Invalid email or password!");
+            res.status(500).send("Database error");
         }
-    });
-}
+    } finally {
+        if (con) await con.close();
+    }
+});
+
+// Start server on port 3000
+const PORT = 3000;
+app.listen(PORT, () => {
+    console.log(`Server running at http://localhost:${PORT}`);
+});
