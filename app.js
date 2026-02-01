@@ -3,20 +3,19 @@ const oracledb = require("oracledb");
 const path = require("path");
 
 const app = express();
-app.use(express.json()); // parse JSON bodies
-app.use(express.urlencoded({ extended: true })); // parse form data
+app.use(express.json()); // parse JSON
+app.use(express.urlencoded({ extended: true })); // data
 
-// Serve static frontend files (like signup.html, style.css)
-app.use(express.static(path.join(__dirname, "web"))); // Make sure signup.html is in "web" folder
+app.use(express.static(path.join(__dirname, "web"))); er
 
-// Oracle DB config – CHANGE these to your credentials
+// Oracle er sathe connection
 const dbConfig = {
   user: "system",
   password: "Afnan@123",
-  connectString: "localhost/orclpdb"// XE is default Oracle Express DB
+  connectString: "localhost/orclpdb"
 };
 
-// Handle signup POST request
+
 app.post("/signup", async (req, res) => {
     const { name, email, password, phone, role } = req.body;
 
@@ -34,7 +33,7 @@ app.post("/signup", async (req, res) => {
         res.send("Signup successful!");
     } catch (err) {
         console.error(err);
-        // Handle unique constraint (email already exists)
+        // email exist korle baad
         if (err.errorNum === 1) {
             res.status(400).send("User with this email already exists");
         } else {
@@ -45,7 +44,7 @@ app.post("/signup", async (req, res) => {
     }
 });
 
-// Start server on port 3000
+
 const PORT = 3000;
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);
