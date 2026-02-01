@@ -6,7 +6,7 @@ const app = express();
 app.use(express.json()); // parse JSON
 app.use(express.urlencoded({ extended: true })); // data
 
-app.use(express.static(path.join(__dirname, "web"))); er
+app.use(express.static(path.join(__dirname, "web"))); 
 
 // Oracle er sathe connection
 const dbConfig = {

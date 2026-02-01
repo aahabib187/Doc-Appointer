@@ -5,7 +5,7 @@ INSERT INTO users (id, name, email, pass, phone, role) VALUES (3,'Patient Charli
 INSERT INTO users (id, name, email, pass, phone, role) VALUES (4,'Tech Dan','dan@example.com','dan123','01744444444','technician');
 
 -- 2️⃣ ADMIN (parent for hospital_branches, departments, specialization, etc.)
-INSERT INTO admin (id, users_id, role, branch_id) VALUES (1, 1, 'superadmin', NULL);
+INSERT INTO admin (id, users_id, role, branch_id) VALUES (1, 11, 'superadmin', NULL);
 
 -- 3️⃣ HOSPITAL BRANCHES
 INSERT INTO hospital_branches (id, admin_id, name, address, established_date) 
@@ -19,15 +19,15 @@ INSERT INTO specialization (id, admin_id, name, description) VALUES (1, 1, 'Card
 
 -- 6️⃣ DOCTOR (after user, admin, department, branch)
 INSERT INTO doctor (id, user_id, admin_id, license_number, degrees, experience_years, available_days_times, dept_id, branch_id)
-VALUES (1, 2, 1, 'LIC12345', 'MBBS, MD', 10, 'Mon-Fri 09:00-15:00', 1, 1);
+VALUES (1, 12, 1, 'LIC12345', 'MBBS, MD', 10, 'Mon-Fri 09:00-15:00', 1, 1);
 
 -- 7️⃣ PATIENT (after user)
 INSERT INTO patient (id, user_id, date_of_birth, gender, occupation, blood_type, marital_status, address)
-VALUES (1, 3, DATE '1990-05-12', 'M', 'Engineer', 'O+', 'Single', '123 Street, City');
+VALUES (1, 13, DATE '1990-05-12', 'M', 'Engineer', 'O+', 'Single', '123 Street, City');
 
 -- 8️⃣ MEDICAL TECHNICIAN (after user, admin, department, branch)
 INSERT INTO medical_technician (id, user_id, admin_id, degrees, experience_years, dept_id, branch_id)
-VALUES (1, 4, 1, 'BSc Medical Tech', 5, 1, 1);
+VALUES (1, 14, 1, 'BSc Medical Tech', 5, 1, 1);
 
 -- 9️⃣ TIME SLOTS (after admin)
 INSERT INTO time_slots (id, admin_id_last, start_time, end_time, status, last_edited_at, type_id)
@@ -77,4 +77,4 @@ VALUES (1, 1, '01712345678', 'Eve', 'Sister', '456 Secondary St');
 
 -- ✅ COMMIT ALL
 COMMIT;
-SELECT * FROM USERS;
+SELECT * FROM DOCTOR;
